@@ -14,7 +14,6 @@ function App() {
 
       <section>
         <Nav/>
-        <Home/>
       </section>
 
       <footer>

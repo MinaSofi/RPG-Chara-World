@@ -1,3 +1,5 @@
+/* Overall settings */
+
 * {
   box-sizing: border-box;
 }
@@ -19,6 +21,17 @@ section {
 	width: 100%;
 	background: #9C5AA1;
 }
+
+article {
+	background: #F98FFF;
+	width: 85%;
+	float: left;
+	font-family: "Indie Flower";
+	padding: 50px;
+	box-sizing: border-box;
+}
+
+/* Navbar contents */
 
 nav {
 	background: #9C5AA1;
@@ -61,16 +74,8 @@ nav li a:hover:not(.active) {
 	color: white;
 }
 
-article {
-	background: #F98FFF;
-	width: 85%;
-	float: left;
-	font-family: "Indie Flower";
-	padding: 50px;
-	box-sizing: border-box;
-}
+/* CharacterPage contents */
 
-/*CharacterPage contents*/
 #charaBox {
 	padding: 50px 50px 50px 100px;
 }
@@ -116,7 +121,8 @@ article {
 	background: #F958FF;
 }
 
-/*Specific character page contents*/
+/* Specific character page contents */
+
 #charaInfo h3 {
 	text-align: left;
 }
@@ -207,7 +213,8 @@ article a:hover {
 	text-align: center;
 }
 
-/*more HomePage contents*/
+/* more HomePage contents */
+
 h1 {
 	text-shadow: 2px 2px 5px #F98FFF;
 }
@@ -238,7 +245,7 @@ footer {
 	margin-top: 20px;
 }
 
-/*Content placements and sizes on different dimensions*/
+/* Content placements and sizes on different dimensions */
 
 @media (max-width: 1700px) {
 	#charaInfo {

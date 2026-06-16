@@ -1,13 +1,17 @@
+import {
+    Link,
+} from "react-router-dom"
+
 const CharaList = () => {
     return (
         <article>
             <h2 id="charaTitle">All the characters</h2>
             <div id="charaBox">
                 <div id="charaList">
-                    <a href="">
+                    <Link to="/chara">
                         <img src=""></img>
                         <div id="charaName">Adam</div>
-                    </a>
+                    </Link>
                 </div>
             </div>
         </article>
