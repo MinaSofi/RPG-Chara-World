@@ -1,7 +1,7 @@
 /* Overall settings */
 
 * {
-  box-sizing: border-box;
+  	box-sizing: border-box;
 }
 
 body {
@@ -29,6 +29,94 @@ article {
 	font-family: "Indie Flower";
 	padding: 50px;
 	box-sizing: border-box;
+}
+
+button {
+	background: #961EFF;
+	border: 2px solid #7317C4;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
+}
+
+button:hover {
+	background: #F958FF;
+	color: black;
+}
+
+input {
+	margin-left: 10px;
+}
+
+form {
+	text-align: center;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+h1 {
+	text-shadow: 2px 2px 5px #F98FFF;
+}
+
+h2 {
+	margin: 25px;
+	padding: 25px;
+}
+
+h3 {
+	text-align: center;
+	text-shadow: 2px 2px 5px #F958FF;
+}
+
+p {
+	margin: 25px;
+	padding: 5px 25px 25px 25px;
+}
+
+ul {
+	list-style-type: none;
+}
+
+section::after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+footer {
+	text-align: center;
+	margin-top: 20px;
+}
+
+/* Loginbar contents */
+
+#login {
+	background: #96CDFF;
+}
+
+#login ul {
+	list-style-type: none;
+	text-align: center;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: flex-end;
+}
+
+#login li {
+	padding-right: 10px;
+}
+
+#login li a {
+	text-decoration: none;
+	color: black;
+}
+
+#login li a:hover {
+	color: white;
 }
 
 /* Navbar contents */
@@ -78,13 +166,16 @@ nav li a:hover:not(.active) {
 
 #charaBox {
 	padding: 50px 50px 50px 100px;
+	text-align: center;
+	display: flex;
 }
 
 #charaList {
 	border: 2px solid #961EFF;
 	outline: none;
 	background: #F958FF;
-	float: left;
+	flex-direction: row;
+	width: 179px;
 	margin: 5px;
 	border-radius: 5px;
 }
@@ -127,13 +218,26 @@ nav li a:hover:not(.active) {
 	text-align: left;
 }
 
+#charaLayout ul {
+	display: flex;
+	justify-content: flex-start;
+}
+
+#charaLayout li {
+	display: flex;
+	flex-grow: 1;
+}
+
+#charaLayout li:last-child {
+	justify-content: flex-end;
+}
+
 #charaInfo img {
 	height: 350px;
 	width: 350px;
-	margin: 100px 0px 0px 0px;
+	margin: 50px 0px 0px 0px;
 	outline: 2px solid #961EFF;
 	border-radius: 5px;
-	float: left;
 }
 
 #charaInfo ul {
@@ -145,16 +249,19 @@ nav li a:hover:not(.active) {
 	list-style-type: none;
 	margin: 0;
 	padding: 0;
-	float: right;
+	flex-direction: column;
+	justify-content: flex-end;
 }
 
 #charaInfo li {
 	padding: 5px;
 	border-bottom: 2px solid #F98FFF;
+	justify-content: left;
 }
 
 #charaInfo li:last-child {
 	border-bottom: none;
+	justify-content: left;
 }
 
 article a {
@@ -213,43 +320,15 @@ article a:hover {
 	text-align: center;
 }
 
-/* more HomePage contents */
-
-h1 {
-	text-shadow: 2px 2px 5px #F98FFF;
-}
-
-h2 {
-	margin: 25px;
-	padding: 25px;
-}
-
-h3 {
-	text-align: center;
-	text-shadow: 2px 2px 5px #F958FF;
-}
-
-p {
-	margin: 25px;
-	padding: 5px 25px 25px 25px;
-}
-
-section::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-footer {
-	text-align: center;
-	margin-top: 20px;
-}
-
 /* Content placements and sizes on different dimensions */
 
 @media (max-width: 1700px) {
 	#charaInfo {
 		margin: 25px 80px 25px 80px;
+	}
+
+	#charaList {
+		width: 154px;
 	}
 	
 	#charaList img {
@@ -267,8 +346,8 @@ footer {
 }
 
 @media (max-width: 1000px) {
-	#charaInfo {
-		float: center;
+	#charaLayout ul {
+		flex-direction: column;
 	}
 	
 	#charaInfo ul {
