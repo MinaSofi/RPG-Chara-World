@@ -115,7 +115,25 @@ footer {
 	color: black;
 }
 
+#login li a.active {
+	color: white;
+}
+
 #login li a:hover {
+	color: white;
+}
+
+#login li button {
+	background: none;
+	border: none;
+	border-radius: 0;
+	color: black;
+	font-family: "Crushed";
+	text-decoration: none;
+	padding: 0;
+}
+
+#login li button:hover {
 	color: white;
 }
 
@@ -162,7 +180,7 @@ nav li a:hover:not(.active) {
 	color: white;
 }
 
-/* CharacterPage contents */
+/* Character list contents */
 
 #charaBox {
 	padding: 50px 50px 50px 100px;
@@ -212,7 +230,7 @@ nav li a:hover:not(.active) {
 	background: #F958FF;
 }
 
-/* Specific character page contents */
+/* Character page contents */
 
 #charaInfo h3 {
 	text-align: left;
@@ -318,6 +336,15 @@ article a:hover {
 	width: 100%;
 	float: left;
 	text-align: center;
+}
+
+/* Adding character page settings */
+
+#addForm label {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
 }
 
 /* Content placements and sizes on different dimensions */

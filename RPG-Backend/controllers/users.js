@@ -7,6 +7,7 @@ usersRouter.get('/', async (request, response) => {
         name: 1, 
         fullname: 1, 
         nicknames: 1,
+        gender: 1,
         species: 1, 
         nationality: 1,
         languages: 1,
@@ -18,6 +19,11 @@ usersRouter.get('/', async (request, response) => {
         career: 1,
         relatives: 1,
         partner: 1,
+        image: 1,
+        lore: 1,
+        gallery: 1,
+        game: 1,
+        public: 1,
         user: 1
     })
     response.json(users)

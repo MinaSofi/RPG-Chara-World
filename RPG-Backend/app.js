@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+const express = require('express')
+const mongoose = require('mongoose')
+const config = require('./utils/config')
+const logger = require('./utils/logger')
+const middleware = require('./utils/middleware')
+const charasRouter = require('./controllers/charas')
+const loginRouter = require('./controllers/login')
+const usersRouter = require('./controllers/users')
+require("node:dns/promises").setServers(["1.1.1.1", "8.8.8.8"])
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const app = express()
 
-export default App;
+logger.info('connecting to', config.MONGODB_URI)
+
+mongoose
+  .connect(config.MONGODB_URI)
+  .then(() => {
+    logger.info('connected to MongoDB')
+  })
+  .catch((error) => {
+    logger.error('error connecting to MongoDB:', error.message)
+  })
+
+app.use(express.static('dist'))
+app.use(express.json())
+app.use(middleware.requestLogger)
+app.use(middleware.tokenExtractor)
+
+app.use('/api/login', loginRouter)
+app.use('/api/charas', charasRouter)
+app.use('/api/users', usersRouter)
+
+app.use(middleware.unknownEndpoint)
+app.use(middleware.errorHandler)
+
+module.exports = app
