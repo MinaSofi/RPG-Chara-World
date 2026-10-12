@@ -17,6 +17,7 @@ import {
     Routes,
     Route,
     Link,
+    useNavigate
 } from "react-router-dom"
 import { useState, useEffect, useRef } from "react"
 
@@ -24,6 +25,9 @@ const PageRouter = () => {
     const [user, setUser] = useState(null)
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [charas, setCharas] = useState([])
+    const [message, setMessage] = useState(null)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedRPGAppUser')
@@ -32,6 +36,9 @@ const PageRouter = () => {
             setUser(user)
             charaService.setToken(user.token)
         }
+        charaService.getAll().then(charas =>
+            setCharas(charas)
+        )
     }, [])
 
     const handleLogin = async (event) => {
@@ -44,7 +51,13 @@ const PageRouter = () => {
             window.localStorage.setItem('loggedRPGAppUser', JSON.stringify(user))
             charaService.setToken(user.token)
             setUser(user)
+            navigate('/')
+            if(user) {
+                setUsername('')
+                setPassword('')
+            }
         } catch (error) {
+            setMessage('Wrong credentials!')
             console.log(error)
         }
     }
@@ -59,7 +72,13 @@ const PageRouter = () => {
             window.localStorage.setItem('loggedRPGAppUser', JSON.stringify(user))
             charaService.setToken(user.token)
             setUser(user)
+            navigate('/login')
+            if(user) {
+                setUsername('')
+                setPassword('')
+            }
         } catch (error) {
+            setMessage('Username has to be at least 3 characters long and password 10! Otherwise the username might be already taken! :(')
             console.log(error)
         }
     }
@@ -68,10 +87,11 @@ const PageRouter = () => {
         window.localStorage.removeItem('loggedRPGAppUser')
         charaService.setToken(null)
         setUser(null)
+        navigate('/')
     }
 
     return (
-        <Router>
+        <>
             <header>
                 <h1>
                     <Link to="/">RPG Chara World</Link>
@@ -96,6 +116,7 @@ const PageRouter = () => {
                             handlePasswordSetting={({ target }) => setPassword(target.value)}
                             username={username}
                             password={password}
+                            message={message}
                         />
                     } />
                     <Route path="/register" element={
@@ -105,6 +126,7 @@ const PageRouter = () => {
                             handlePasswordSetting={({ target }) => setPassword(target.value)}
                             username={username}
                             password={password}
+                            message={message}
                         />
                     } />
                     <Route path="/my_characters" element={<MyCharacters />} />
@@ -112,7 +134,7 @@ const PageRouter = () => {
                     <Route path="/profile_settings" element={<Settings />} />
                 </Routes>
             </section>
-        </Router>
+        </>
     )
 }
 
