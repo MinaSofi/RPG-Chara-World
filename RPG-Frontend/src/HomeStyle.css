@@ -347,6 +347,39 @@ article a:hover {
 	justify-content: center;
 }
 
+#dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+#select {
+	background-color: #9C5AA1;
+	color: white;
+	padding: 5px 10px;
+	margin: 5px;
+	border-radius: 5px;
+}
+
+#drop-content {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	overflow-y: auto;
+	background-color: #F958FF;
+	border: 1px #9C5AA1 solid;
+	border-radius: 5px;
+}
+
+#dropdown:hover #drop-content {
+	display: block;
+}
+
+label p {
+	margin: 0;
+	padding: 0;
+	padding-right: 10px;
+}
+
 /* Content placements and sizes on different dimensions */
 
 @media (max-width: 1700px) {

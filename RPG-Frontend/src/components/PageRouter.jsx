@@ -59,6 +59,9 @@ const PageRouter = () => {
         } catch (error) {
             setMessage('Wrong credentials!')
             console.log(error)
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
         }
     }
 
@@ -78,8 +81,11 @@ const PageRouter = () => {
                 setPassword('')
             }
         } catch (error) {
-            setMessage('Username has to be at least 3 characters long and password 10! Otherwise the username might be already taken! :(')
+            setMessage('Check the tip! Otherwise the username might be already taken! :(')
             console.log(error)
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
         }
     }
 

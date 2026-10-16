@@ -20,6 +20,7 @@ const RegisterForm = ({
         <article>
             <form onSubmit={handleRegister}>
                 <h2>Register page</h2>
+                <p><i>Username must be at least 3 characters long and password 10!</i></p>
                 <div>
                     <label>
                         Username :

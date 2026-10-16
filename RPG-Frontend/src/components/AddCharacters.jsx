@@ -28,17 +28,19 @@ const AddCharacters = ({
     handleInterestsSetting,
     career,
     handleCareerSetting,
-    lore,
-    handleLoreSetting,
+    relative,
+    partner,
     game,
-    handleGameSetting
+    handleGameSetting,
+    publ
 }) => {
     return (
         <article>
             <form onSubmit={handleAdding} id="addForm">
                 <h2>Add a character</h2>
+                <p><i>(*) marks the fields that are required.</i></p>
                 <label>
-                    Name :
+                    Name(*) :
                         <input
                             type="text"
                             value={name}
@@ -156,21 +158,43 @@ const AddCharacters = ({
                 </label>
                 <label>
                     Relatives :
+                        <div id="dropdown">
+                            <div id="select">Select characters</div>
+                            <div id="drop-content">
+                                <label>
+                                    <input type="checkbox" value={relative}/>
+                                    <p>hi</p>
+                                </label>
+                                <label>
+                                    <input type="checkbox" value={relative}/>
+                                    <p>ha</p>
+                                </label>
+                                <label>
+                                    <input type="checkbox" value={relative}/>
+                                    <p>ho</p>
+                                </label>
+                            </div>
+                        </div>
                 </label>
                 <label>
                     Partner(s) :
-                </label>
-                <label>
-                    Lore :
-                        <input
-                            type="text"
-                            value={lore}
-                            name="Lore"
-                            onChange={handleLoreSetting}
-                        />
-                </label>
-                <label>
-                    Gallery :
+                        <div id="dropdown">
+                            <div id="select">Select characters</div>
+                            <div id="drop-content">
+                                <label>
+                                    <input type="checkbox" value={partner}/>
+                                    <p>hi</p>
+                                </label>
+                                <label>
+                                    <input type="checkbox" value={partner}/>
+                                    <p>ha</p>
+                                </label>
+                                <label>
+                                    <input type="checkbox" value={partner}/>
+                                    <p>ho</p>
+                                </label>
+                            </div>
+                        </div>
                 </label>
                 <label>
                     Game :
@@ -182,7 +206,21 @@ const AddCharacters = ({
                         />
                 </label>
                 <label>
-                    Public :
+                    Public(*) :
+                        <label>
+                            <input 
+                                type="radio" 
+                                value={publ}
+                                name="publ"
+                            />No
+                        </label>
+                        <label>
+                            <input 
+                                type="radio" 
+                                value={publ}
+                                name="publ"
+                            />Yes
+                        </label>
                 </label>
                 <button type="submit">Add</button>
                 <p>Don't worry! You can always edit your character's info later!</p>
