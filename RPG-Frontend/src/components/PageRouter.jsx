@@ -1,25 +1,25 @@
 import Home from "./Home"
-import CharaList from "./CharaList"
 import Media from "./Media"
 import Chara from "./Chara"
+import CharaForm from "./CharaForm"
+import MyCharacters from "./MyCharacters"
+import CharaList from "./CharaList"
 import LoginForm from "./LoginForm"
 import LoginBar from "./LoginBar"
 import LoggedBar from "./LoggedBar"
 import RegisterForm from "./RegisterForm"
-import MyCharacters from "./MyCharacters"
 import AddCharacters from "./AddCharacters"
 import Settings from "./Settings"
 import Nav from "./Nav"
 import charaService from "../../services/charas"
 import userService from "../../services/user"
 import {
-    BrowserRouter as Router,
     Routes,
     Route,
     Link,
     useNavigate
 } from "react-router-dom"
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect } from "react"
 
 const PageRouter = () => {
     const [user, setUser] = useState(null)
@@ -36,8 +36,8 @@ const PageRouter = () => {
             setUser(user)
             charaService.setToken(user.token)
         }
-        charaService.getAll().then(charas =>
-            setCharas(charas)
+        charaService.getAll().then(fetchCharas =>
+            setCharas(fetchCharas)
         )
     }, [])
 
@@ -58,7 +58,7 @@ const PageRouter = () => {
             }
         } catch (error) {
             setMessage('Wrong credentials!')
-            console.log(error)
+            console.log(`Error when logging in: ${error}`)
             setTimeout(() => {
                 setMessage(null)
             }, 3000)
@@ -82,7 +82,7 @@ const PageRouter = () => {
             }
         } catch (error) {
             setMessage('Check the tip! Otherwise the username might be already taken! :(')
-            console.log(error)
+            console.log(`Error when registering: ${error}`)
             setTimeout(() => {
                 setMessage(null)
             }, 3000)
@@ -94,6 +94,23 @@ const PageRouter = () => {
         charaService.setToken(null)
         setUser(null)
         navigate('/')
+    }
+
+    const addChara = async (charaObject) => {
+        try {
+            const returnedChara = await charaService.create(charaObject)
+            setCharas(charas.concat(returnedChara))
+            setMessage('Character added successfully!')
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        } catch (error) {
+            setMessage('Something went wrong!')
+            console.log(`Error when adding character: ${error}`)
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        }
     }
 
     return (
@@ -112,9 +129,18 @@ const PageRouter = () => {
 
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/characters" element={<CharaList />} />
+                    <Route path="/characters" element={
+                        <CharaList 
+                            charas={charas}
+                        />
+                    } />
                     <Route path="/media" element={<Media />} />
-                    <Route path="/chara" element={<Chara />} />
+                    <Route path="/chara/:index" element={
+                        <CharaForm 
+                            charas={charas}
+                            user={user}
+                        />} 
+                    />
                     <Route path="/login" element={
                         <LoginForm
                             handleLogin={handleLogin}
@@ -135,8 +161,19 @@ const PageRouter = () => {
                             message={message}
                         />
                     } />
-                    <Route path="/my_characters" element={<MyCharacters />} />
-                    <Route path="/add_characters" element={<AddCharacters />} />
+                    <Route path="/my_characters" element={
+                        <MyCharacters
+                            charas={charas}
+                            user={user}
+                        />
+                    } />
+                    <Route path="/add_characters" element={
+                        <AddCharacters 
+                            createChara={addChara} 
+                            user={user}
+                            message={message}
+                        />
+                    } />
                     <Route path="/profile_settings" element={<Settings />} />
                 </Routes>
             </section>

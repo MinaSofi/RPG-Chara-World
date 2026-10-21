@@ -53,14 +53,18 @@ const charaSchema = new mongoose.Schema({
         type: String,
         default: "-",
     },
-    relatives: {
-        type: String,
-        default: "-",
-    },
-    partner: {
-        type: String,
-        default: "-",
-    },
+    relatives: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Chara'
+        }
+    ],
+    partner: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Chara'
+        }
+    ],
     image: {
         type: String,
         default: "-",

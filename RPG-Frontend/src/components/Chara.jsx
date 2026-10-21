@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 
-const Chara = () => {
+const Chara = ({ chara, user }) => {
     return (
         <article>
             <Link to="/characters">
@@ -9,30 +9,30 @@ const Chara = () => {
             <h2 id="charaTitle">Character Page</h2>
 
             <div id="charaLayout">
-                <h3>Adam</h3>
+                <h3>{chara.name}</h3>
                 <ul>
                     <li>
                         <div id="charaInfo">
-                            <img src=""></img>
+                            <img src={chara.image}></img>
                         </div>
                     </li>
                     <li>
                         <div id="charaInfo">
                             <ul>
-                                <li>Fullname: Adam Raymond Holland</li>
-                                <li>Nickname(s): -</li>
-                                <li>Species: Man-made Human</li>
-                                <li>Nationality: American</li>
-                                <li>Language(s): English</li>
-                                <li>Birthdate: 13th of January 2755</li>
-                                <li>Height: 183 cm</li>
-                                <li>Weight: 76 kg</li>
-                                <li>MBTI: ENFJ-A</li>
-                                <li>Interests: </li>
-                                <li>Career: Doctor</li>
-                                <li>Relatives: -</li>
-                                <li>Partner(s): <a href="../Characters/Sakura.html">Sakura</a> & 
-                                <a href="../Characters/Petra.html">Petra</a></li>
+                                <li>Fullname: {chara.fullname}</li>
+                                <li>Nickname(s): {chara.nicknames}</li>
+                                <li>Gender: {chara.gender}</li>
+                                <li>Species: {chara.species}</li>
+                                <li>Nationality: {chara.nationality}</li>
+                                <li>Language(s): {chara.languages}</li>
+                                <li>Birthdate: {chara.birthdate}</li>
+                                <li>Height: {chara.height}</li>
+                                <li>Weight: {chara.weight}</li>
+                                <li>MBTI: {chara.mbti}</li>
+                                <li>Interests: {chara.interests}</li>
+                                <li>Career: {chara.career}</li>
+                                <li>Relatives: {chara.relatives}</li>
+                                <li>Partner(s): {chara.partner}</li>
                             </ul>
                         </div>
                     </li>
@@ -40,17 +40,22 @@ const Chara = () => {
             </div>
 
             <div id="charaLore">
-                <p>Lotsa lore here!</p>
+                <h3>Lore</h3>
+                <p>{chara.lore}</p>
             </div>
 
             <div id="charaGallery">
                 <h3>Gallery</h3>
-                <p>Lotsa pics here!</p>
+                <p>{chara.gallery}</p>
             </div>
 
             <div id="charaOrigins">
                 <h3>Game origins</h3>
-                <p>Phantasy Star Online 2 New Genesis</p>
+                <p>{chara.game}</p>
+            </div>
+
+            <div>
+                <p>Added by {chara.user.username}</p>
             </div>
         </article>
     )

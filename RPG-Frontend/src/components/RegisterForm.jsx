@@ -1,6 +1,5 @@
 import Notification from "./Notification"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
 
 const RegisterForm = ({
     handleRegister,
@@ -10,17 +9,11 @@ const RegisterForm = ({
     password,
     message
 }) => {
-    useEffect(() => {
-        username = null
-        password = null
-        message = null
-    }, [])
-    
     return (
         <article>
             <form onSubmit={handleRegister}>
                 <h2>Register page</h2>
-                <p><i>Username must be at least 3 characters long and password 10!</i></p>
+                <p><i>Tip: Username must be at least 3 characters long and password 10!</i></p>
                 <div>
                     <label>
                         Username :

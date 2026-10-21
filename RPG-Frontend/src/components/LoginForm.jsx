@@ -1,6 +1,5 @@
 import Notification from "./Notification"
 import { Link } from "react-router-dom"
-import { useEffect } from "react"
 
 const LoginForm = ({
     handleLogin,
@@ -10,12 +9,6 @@ const LoginForm = ({
     password,
     message
 }) => {
-    useEffect(() => {
-        username = null
-        password = null
-        message = null
-    }, [])
-    
     return (
         <article>
             <form onSubmit={handleLogin}>

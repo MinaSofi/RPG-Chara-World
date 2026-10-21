@@ -1,39 +1,79 @@
-import { Link } from "react-router-dom"
+import Notification from "./Notification"
+import { useState } from "react"
 
-const AddCharacters = ({ 
-    handleAdding, 
-    name, 
-    handleNameSetting, 
-    fullname,
-    handleFullnameSetting,
-    nickname,
-    handleNicknameSetting,
-    gender,
-    handleGenderSetting,
-    species,
-    handleSpeciesSetting,
-    nationality,
-    handleNationalitySetting,
-    language,
-    handleLanguageSetting,
-    birthdate,
-    handleBirthdateSetting,
-    height,
-    handleHeightSetting,
-    weight,
-    handleWeightSetting,
-    mbti,
-    handleMBTISetting,
-    interests,
-    handleInterestsSetting,
-    career,
-    handleCareerSetting,
-    relative,
-    partner,
-    game,
-    handleGameSetting,
-    publ
-}) => {
+const AddCharacters = ({ createChara, user, message }) => {
+    const [name, setName] = useState('')
+    const [fullname, setFullname] = useState('')
+    const [nickname, setNickname] = useState('')
+    const [gender, setGender] = useState('')
+    const [species, setSpecies] = useState('')
+    const [nationality, setNationality] = useState('')
+    const [language, setLanguage] = useState('')
+    const [birthdate, setBirthdate] = useState('')
+    const [height, setHeight] = useState('')
+    const [weight, setWeight] = useState('')
+    const [mbti, setMbti] = useState('')
+    const [interests, setInterests] = useState('')
+    const [career, setCareer] = useState('')
+    const [relative, setRelative] = useState([])
+    const [partner, setPartner] = useState([])
+    const [game, setGame] = useState('')
+    const [publ, setPubl] = useState(false)
+
+    const handleAdding = (event) => {
+        event.preventDefault()
+        try {
+            createChara({
+                name: name,
+                fullname: fullname,
+                nicknames: nickname,
+                gender: gender,
+                species: species,
+                nationality: nationality,
+                languages: language,
+                birthdate: birthdate,
+                height: height,
+                weight: weight,
+                mbti: mbti,
+                interests: interests,
+                career: career,
+                relatives: relative,
+                partner: partner,
+                image: null,
+                lore: null,
+                gallery: null,
+                game: game,
+                public: publ,
+                user: user
+            })
+            setTimeout(() => {
+                resetFields()
+            }, 2000)
+        } catch (error) {
+            console.log(`Error when creating character: ${error}`)
+        }
+    }
+
+    const resetFields = () => {
+        setName('')
+        setFullname('')
+        setNickname('')
+        setGender('')
+        setSpecies('')
+        setNationality('')
+        setLanguage('')
+        setBirthdate('')
+        setHeight('')
+        setWeight('')
+        setMbti('')
+        setInterests('')
+        setCareer('')
+        setRelative('')
+        setPartner('')
+        setGame('')
+        setPubl('')
+    }
+
     return (
         <article>
             <form onSubmit={handleAdding} id="addForm">
@@ -45,7 +85,7 @@ const AddCharacters = ({
                             type="text"
                             value={name}
                             name="Name"
-                            onChange={handleNameSetting}
+                            onChange={({ target }) => setName(target.value)}
                         />
                 </label>
                 <label>
@@ -54,7 +94,7 @@ const AddCharacters = ({
                             type="text"
                             value={fullname}
                             name="Fullname"
-                            onChange={handleFullnameSetting}
+                            onChange={({ target }) => setFullname(target.value)}
                         />
                 </label>
                 <label>
@@ -63,7 +103,7 @@ const AddCharacters = ({
                             type="text"
                             value={nickname}
                             name="Nickname"
-                            onChange={handleNicknameSetting}
+                            onChange={({ target }) => setNickname(target.value)}
                         />
                 </label>
                 <label>
@@ -72,7 +112,7 @@ const AddCharacters = ({
                             type="text"
                             value={gender}
                             name="Gender"
-                            onChange={handleGenderSetting}
+                            onChange={({ target }) => setGender(target.value)}
                         />
                 </label>
                 <label>
@@ -81,7 +121,7 @@ const AddCharacters = ({
                             type="text"
                             value={species}
                             name="Species"
-                            onChange={handleSpeciesSetting}
+                            onChange={({ target }) => setSpecies(target.value)}
                         />
                 </label>
                 <label>
@@ -90,7 +130,7 @@ const AddCharacters = ({
                             type="text"
                             value={nationality}
                             name="Nationality"
-                            onChange={handleNationalitySetting}
+                            onChange={({ target }) => setNationality(target.value)}
                         />
                 </label>
                 <label>
@@ -99,7 +139,7 @@ const AddCharacters = ({
                             type="text"
                             value={language}
                             name="Language"
-                            onChange={handleLanguageSetting}
+                            onChange={({ target }) => setLanguage(target.value)}
                         />
                 </label>
                 <label>
@@ -108,7 +148,7 @@ const AddCharacters = ({
                             type="text"
                             value={birthdate}
                             name="Birthdate"
-                            onChange={handleBirthdateSetting}
+                            onChange={({ target }) => setBirthdate(target.value)}
                         />
                 </label>
                 <label>
@@ -117,7 +157,7 @@ const AddCharacters = ({
                             type="text"
                             value={height}
                             name="Height"
-                            onChange={handleHeightSetting}
+                            onChange={({ target }) => setHeight(target.value)}
                         />
                 </label>
                 <label>
@@ -126,7 +166,7 @@ const AddCharacters = ({
                             type="text"
                             value={weight}
                             name="Weight"
-                            onChange={handleWeightSetting}
+                            onChange={({ target }) => setWeight(target.value)}
                         />
                 </label>
                 <label>
@@ -135,7 +175,7 @@ const AddCharacters = ({
                             type="text"
                             value={mbti}
                             name="MBTI"
-                            onChange={handleMBTISetting}
+                            onChange={({ target }) => setMbti(target.value)}
                         />
                 </label>
                 <label>
@@ -144,7 +184,7 @@ const AddCharacters = ({
                             type="text"
                             value={interests}
                             name="Interests"
-                            onChange={handleInterestsSetting}
+                            onChange={({ target }) => setInterests(target.value)}
                         />
                 </label>
                 <label>
@@ -153,7 +193,7 @@ const AddCharacters = ({
                             type="text"
                             value={career}
                             name="Career"
-                            onChange={handleCareerSetting}
+                            onChange={({ target }) => setCareer(target.value)}
                         />
                 </label>
                 <label>
@@ -202,7 +242,7 @@ const AddCharacters = ({
                             type="text"
                             value={game}
                             name="Game"
-                            onChange={handleGameSetting}
+                            onChange={({ target }) => setGame(target.value)}
                         />
                 </label>
                 <label>
@@ -210,19 +250,22 @@ const AddCharacters = ({
                         <label>
                             <input 
                                 type="radio" 
-                                value={publ}
+                                value={false}
                                 name="publ"
+                                onChange={({ target }) => setPubl(target.value)}
                             />No
                         </label>
                         <label>
                             <input 
                                 type="radio" 
-                                value={publ}
+                                value={true}
                                 name="publ"
+                                onChange={({ target }) => setPubl(target.value)}
                             />Yes
                         </label>
                 </label>
                 <button type="submit">Add</button>
+                <Notification message={message}/>
                 <p>Don't worry! You can always edit your character's info later!</p>
             </form>
         </article>
