@@ -150,7 +150,6 @@ nav ul {
 	border: 4px solid #F98FFF;
 	outline: 4px solid #961EFF;
 	background: #96CDFF;
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
 }
@@ -185,14 +184,13 @@ nav li a:hover:not(.active) {
 #charaBox {
 	padding: 50px 50px 50px 100px;
 	text-align: center;
-	display: flex;
 }
 
 #charaList {
 	border: 2px solid #961EFF;
 	outline: none;
 	background: #F958FF;
-	flex-direction: row;
+	float: left;
 	width: 179px;
 	margin: 5px;
 	border-radius: 5px;
@@ -232,49 +230,42 @@ nav li a:hover:not(.active) {
 
 /* Character page contents */
 
-#charaInfo h3 {
-	text-align: left;
+#charaLayout {
+	float: left;
+	width: 100%;
 }
 
-#charaLayout ul {
-	display: flex;
-	justify-content: flex-start;
+#charaPic {
+	float: left;
 }
 
-#charaLayout li {
-	display: flex;
-	flex-grow: 1;
-}
-
-#charaLayout li:last-child {
-	justify-content: flex-end;
-}
-
-#charaInfo img {
+#charaPic img {
 	height: 350px;
 	width: 350px;
-	margin: 50px 0px 0px 0px;
+	margin-top: 95px;
 	outline: 2px solid #961EFF;
 	border-radius: 5px;
 }
 
+#charaInfo {
+	float: right;
+}
+
 #charaInfo ul {
+	display: flex;
 	background: #F958FF;
 	width: 500px;
 	border-radius: 15px;
 	border: 2px solid #F98FFF;
 	outline: 2px solid #961EFF;
-	list-style-type: none;
 	margin: 0;
 	padding: 0;
 	flex-direction: column;
-	justify-content: flex-end;
 }
 
 #charaInfo li {
 	padding: 5px;
 	border-bottom: 2px solid #F98FFF;
-	justify-content: left;
 }
 
 #charaInfo li:last-child {
@@ -291,40 +282,14 @@ article a:hover {
 	color: #96CDFF;
 }
 
+#editButton {
+	float: right;
+	margin: 10px;
+}
+
 #charaLore {
 	width: 100%;
 	float: left;
-}
-
-#charaDisco {
-	width: 100%;
-	float: left;
-}
-
-#groupPromo {
-	text-align: left;
-	text-shadow: none;
-}
-
-#charaDisco ul {
-	background: none;
-	border: none;
-	outline: none;
-}
-
-#charaDisco img {
-	height: 200px;
-	width: 200px;
-}
-
-#discoContent {
-	float: left;
-	background: #F958FF;
-	padding: 30px;
-	margin: 20px;
-	border: 2px solid #961EFF;
-	border-radius: 50px;
-	width: 47%;
 }
 
 #charaGallery {
@@ -336,6 +301,10 @@ article a:hover {
 	width: 100%;
 	float: left;
 	text-align: center;
+}
+
+#charaUser {
+	float: left;
 }
 
 /* Adding character page settings */
@@ -387,6 +356,10 @@ label p {
 		margin: 25px 80px 25px 80px;
 	}
 
+	#charaPic {
+		margin-left: 80px;
+	}
+
 	#charaList {
 		width: 154px;
 	}
@@ -405,16 +378,40 @@ label p {
 	}
 }
 
-@media (max-width: 1000px) {
-	#charaLayout ul {
-		flex-direction: column;
-	}
-	
+@media (max-width: 1400px) {
 	#charaInfo ul {
 		width: auto;
 	}
-	
-	#discoContent img {
-		display: none;
+}
+
+@media (max-width: 1100px) {
+	#charaInfo {
+		float: left;
+	}
+}
+
+@media (max-width: 900px) {
+	nav {
+		float: none;
+		width: auto;
+
+	}
+
+	nav ul {
+		display: flex;
+		justify-content: center;
+		border: none;
+		outline: none;
+		background: none;
+	}
+
+	nav li {
+		border: none;
+		outline: 4px solid #961EFF;
+		background: #96CDFF;
+	}
+
+	article {
+		width: 100%;
 	}
 }

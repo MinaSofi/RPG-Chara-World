@@ -1,7 +1,7 @@
 import Notification from "./Notification"
 import { useState } from "react"
 
-const AddCharacters = ({ createChara, user, message }) => {
+const AddCharacters = ({ createChara, user, message, charas }) => {
     const [name, setName] = useState('')
     const [fullname, setFullname] = useState('')
     const [nickname, setNickname] = useState('')
@@ -19,6 +19,8 @@ const AddCharacters = ({ createChara, user, message }) => {
     const [partner, setPartner] = useState([])
     const [game, setGame] = useState('')
     const [publ, setPubl] = useState(false)
+    const checkRel = ''
+    const checkPar = ''
 
     const handleAdding = (event) => {
         event.preventDefault()
@@ -201,18 +203,21 @@ const AddCharacters = ({ createChara, user, message }) => {
                         <div id="dropdown">
                             <div id="select">Select characters</div>
                             <div id="drop-content">
-                                <label>
-                                    <input type="checkbox" value={relative}/>
-                                    <p>hi</p>
-                                </label>
-                                <label>
-                                    <input type="checkbox" value={relative}/>
-                                    <p>ha</p>
-                                </label>
-                                <label>
-                                    <input type="checkbox" value={relative}/>
-                                    <p>ho</p>
-                                </label>
+                                {charas.map((chara, index) => {
+                                    if(chara.user.username == user.username) {
+                                        return (
+                                            <label>
+                                                <input 
+                                                    type="checkbox" 
+                                                    value={checkRel}
+                                                    name="Relative"
+                                                    onChange={({ target }) => console.log(target.value)}
+                                                />
+                                                <p>{chara.name}</p>
+                                            </label>
+                                        )
+                                    }
+                                })}
                             </div>
                         </div>
                 </label>
@@ -221,18 +226,21 @@ const AddCharacters = ({ createChara, user, message }) => {
                         <div id="dropdown">
                             <div id="select">Select characters</div>
                             <div id="drop-content">
-                                <label>
-                                    <input type="checkbox" value={partner}/>
-                                    <p>hi</p>
-                                </label>
-                                <label>
-                                    <input type="checkbox" value={partner}/>
-                                    <p>ha</p>
-                                </label>
-                                <label>
-                                    <input type="checkbox" value={partner}/>
-                                    <p>ho</p>
-                                </label>
+                                {charas.map((chara, index) => {
+                                    if(chara.user.username == user.username) {
+                                        return (
+                                            <label>
+                                                <input 
+                                                    type="checkbox" 
+                                                    value={checkPar}
+                                                    name="Partner"
+                                                    onChange={({ target }) => setPartner(target.value)}
+                                                />
+                                                <p>{chara.name}</p>
+                                            </label>
+                                        )
+                                    }
+                                })}
                             </div>
                         </div>
                 </label>

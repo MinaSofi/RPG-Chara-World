@@ -1,6 +1,5 @@
 import Home from "./Home"
 import Media from "./Media"
-import Chara from "./Chara"
 import CharaForm from "./CharaForm"
 import MyCharacters from "./MyCharacters"
 import CharaList from "./CharaList"
@@ -172,6 +171,7 @@ const PageRouter = () => {
                             createChara={addChara} 
                             user={user}
                             message={message}
+                            charas={charas}
                         />
                     } />
                     <Route path="/profile_settings" element={<Settings />} />
