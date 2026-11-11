@@ -35,7 +35,9 @@ charasRouter.post('/', userExtractor, async (request, response) => {
         interests: body.interests,
         career: body.career,
         relatives: body.relatives,
+        relative_desc: body.relative_desc,
         partner: body.partner,
+        partner_desc: body.partner_desc,
         image: body.image,
         lore: body.lore,
         gallery: body.gallery,
@@ -85,7 +87,9 @@ charasRouter.put('/:id', async (request, response) => {
             interests,
             career,
             relatives,
+            relative_desc,
             partner,
+            partner_desc,
             image,
             lore,
             gallery,
@@ -113,7 +117,9 @@ charasRouter.put('/:id', async (request, response) => {
     chara.interests = interests
     chara.career = career
     chara.relatives = relatives
+    chara.relative_desc = relative_desc
     chara.partner = partner
+    chara.partner_desc = partner_desc
     chara.image = image
     chara.lore = lore
     chara.gallery = gallery

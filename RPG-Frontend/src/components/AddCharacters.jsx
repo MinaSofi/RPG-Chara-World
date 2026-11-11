@@ -15,12 +15,12 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
     const [mbti, setMbti] = useState('')
     const [interests, setInterests] = useState('')
     const [career, setCareer] = useState('')
-    const [relative, setRelative] = useState([])
-    const [partner, setPartner] = useState([])
+    const [selectedRelatives, setSelectedRelatives] = useState([])
+    const [relative_desc, setRelative_desc] = useState('')
+    const [selectedPartners, setSelectedPartners] = useState([])
+    const [partner_desc, setPartner_desc] = useState('')
     const [game, setGame] = useState('')
     const [publ, setPubl] = useState(false)
-    const checkRel = ''
-    const checkPar = ''
 
     const handleAdding = (event) => {
         event.preventDefault()
@@ -39,8 +39,10 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
                 mbti: mbti,
                 interests: interests,
                 career: career,
-                relatives: relative,
-                partner: partner,
+                relatives: selectedRelatives,
+                relative_desc: relative_desc,
+                partner: selectedPartners,
+                partner_desc: partner_desc,
                 image: null,
                 lore: null,
                 gallery: null,
@@ -70,10 +72,35 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
         setMbti('')
         setInterests('')
         setCareer('')
-        setRelative('')
-        setPartner('')
+        setRelative_desc('')
+        setSelectedRelatives([])
+        setPartner_desc('')
+        setSelectedPartners([])
         setGame('')
-        setPubl('')
+    }
+
+    const printRelation = (list, desc, name, pholder, setting) => {
+        try {
+            return (
+                list.map((relative, index) => (
+                    <label id="relation-content" key={relative}>
+                        {relative}
+                        <input
+                            type="text"
+                            value={desc[relative]}
+                            name={name}
+                            placeholder={pholder}
+                            onChange={({ target }) => setting(prev => ({
+                                ...prev,
+                                [relative]: target.value
+                            }))}
+                        />
+                    </label>
+                ))
+            )
+        } catch (error) {
+            console.log(`Error printing relatives ${error}`)
+        }
     }
 
     return (
@@ -204,14 +231,26 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
                             <div id="select">Select characters</div>
                             <div id="drop-content">
                                 {charas.map((chara, index) => {
-                                    if(chara.user.username == user.username) {
+                                    if (chara.user.username == user.username) {
                                         return (
-                                            <label>
+                                            <label id="label-dropdown" key={index}>
                                                 <input 
-                                                    type="checkbox" 
-                                                    value={checkRel}
+                                                    type="checkbox"
+                                                    value={chara.name}
                                                     name="Relative"
-                                                    onChange={({ target }) => console.log(target.value)}
+                                                    checked={selectedRelatives.includes(chara.name)}
+                                                    onChange={({target}) => {
+                                                        if (target.checked) {
+                                                            setSelectedRelatives(prev => [
+                                                                ...prev,
+                                                                target.value
+                                                            ])
+                                                        } else {
+                                                            setSelectedRelatives(prev => 
+                                                                prev.filter(relative => relative !== target.value)
+                                                            )
+                                                        }
+                                                    }}
                                                 />
                                                 <p>{chara.name}</p>
                                             </label>
@@ -221,6 +260,13 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
                             </div>
                         </div>
                 </label>
+                {printRelation(
+                    selectedRelatives,
+                    relative_desc,
+                    "Relative_desc",
+                    "Relation to character...",
+                    setRelative_desc
+                )}
                 <label>
                     Partner(s) :
                         <div id="dropdown">
@@ -229,12 +275,24 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
                                 {charas.map((chara, index) => {
                                     if(chara.user.username == user.username) {
                                         return (
-                                            <label>
+                                            <label id="label-dropdown" key={index}>
                                                 <input 
-                                                    type="checkbox" 
-                                                    value={checkPar}
+                                                    type="checkbox"
+                                                    value={chara.name}
                                                     name="Partner"
-                                                    onChange={({ target }) => setPartner(target.value)}
+                                                    checked={selectedPartners.includes(chara.name)}
+                                                    onChange={({target}) => {
+                                                        if (target.checked) {
+                                                            setSelectedPartners(prev => [
+                                                                ...prev,
+                                                                target.value
+                                                            ])
+                                                        } else {
+                                                            setSelectedPartners(prev => 
+                                                                prev.filter(relative => relative !== target.value)
+                                                            )
+                                                        }
+                                                    }}
                                                 />
                                                 <p>{chara.name}</p>
                                             </label>
@@ -244,6 +302,13 @@ const AddCharacters = ({ createChara, user, message, charas }) => {
                             </div>
                         </div>
                 </label>
+                {printRelation(
+                    selectedPartners,
+                    partner_desc,
+                    "Partner_desc",
+                    "Relationship w/ character...",
+                    setPartner_desc
+                )}
                 <label>
                     Game :
                         <input

@@ -1,6 +1,26 @@
 import { Link } from "react-router-dom"
 
 const Chara = ({ chara, user }) => {
+
+    const printPeople = (desc) => {
+        if (!desc || desc.length === 0) {
+            return ""
+        }
+
+        return (
+            desc.map((person) => {
+                if (!person || Object.keys(person).length === 0) {
+                    return ""
+                }
+                
+                const [name, relation] = Object.entries(person)[0]
+
+                return (
+                    `${name} (${relation})`
+                )
+        }).filter(Boolean).join(", "))
+    }
+
     const editInfo = () => {
         if (user) {
             return "/my_characters"
@@ -33,8 +53,8 @@ const Chara = ({ chara, user }) => {
                         <li>MBTI: {chara.mbti}</li>
                         <li>Interests: {chara.interests}</li>
                         <li>Career: {chara.career}</li>
-                        <li>Relatives: {chara.relatives}</li>
-                        <li>Partner(s): {chara.partner}</li>
+                        <li>Relatives: {printPeople(chara.relative_desc)}</li>
+                        <li>Partner(s): {printPeople(chara.partner_desc)}</li>
                     </ul>
                     <button id="editButton" onClick={editInfo}>Edit profile</button>
                 </div>

@@ -309,11 +309,15 @@ article a:hover {
 
 /* Adding character page settings */
 
-#addForm label {
+label {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 	justify-content: center;
+}
+
+#label-dropdown {
+	display: flex;
+	justify-content: left;
 }
 
 #dropdown {
@@ -333,7 +337,6 @@ article a:hover {
 	display: none;
 	position: absolute;
 	z-index: 1;
-	overflow-y: auto;
 	background-color: #F958FF;
 	border: 1px #9C5AA1 solid;
 	border-radius: 5px;
@@ -347,6 +350,10 @@ label p {
 	margin: 0;
 	padding: 0;
 	padding-right: 10px;
+}
+
+#relation-content {
+	margin-left: 200px;
 }
 
 /* Content placements and sizes on different dimensions */

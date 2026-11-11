@@ -27,6 +27,7 @@ const PageRouter = () => {
     const [charas, setCharas] = useState([])
     const [message, setMessage] = useState(null)
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedRPGAppUser')
@@ -35,9 +36,16 @@ const PageRouter = () => {
             setUser(user)
             charaService.setToken(user.token)
         }
-        charaService.getAll().then(fetchCharas =>
-            setCharas(fetchCharas)
-        )
+        charaService.getAll()
+            .then(fetchCharas => {
+                setCharas(fetchCharas)
+            })
+            .catch((error) => {
+                console.log(`Error when loading chara ${error}`)
+            })
+            .finally(() => {
+                setLoading(false)
+            })
     }, [])
 
     const handleLogin = async (event) => {
@@ -138,6 +146,7 @@ const PageRouter = () => {
                         <CharaForm 
                             charas={charas}
                             user={user}
+                            loading={loading}
                         />} 
                     />
                     <Route path="/login" element={
