@@ -1,0 +1,7 @@
+POST http://localhost:5173/api/charas/6af3245a23807079c3b63e85
+Content-Type: application/json
+Authorization: Bearer tokenhere
+
+{
+    "user": "ObjectId('6ab219a7de9de5f7a1b813bd')"
+}

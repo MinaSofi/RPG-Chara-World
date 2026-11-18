@@ -1,31 +1,66 @@
+import EditCharacters from "./EditCharacters"
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Chara = ({ chara, user }) => {
+const Chara = ({ chara, user, charas, message, editChara }) => {
+    const [name, setName] = useState(chara.name)
+    const [fullname, setFullname] = useState(chara.fullname)
+    const [nickname, setNickname] = useState(chara.nicknames)
+    const [gender, setGender] = useState(chara.gender)
+    const [species, setSpecies] = useState(chara.species)
+    const [nationality, setNationality] = useState(chara.nationality)
+    const [language, setLanguage] = useState(chara.languages)
+    const [birthdate, setBirthdate] = useState(chara.birthdate)
+    const [height, setHeight] = useState(chara.height)
+    const [weight, setWeight] = useState(chara.weight)
+    const [mbti, setMbti] = useState(chara.mbti)
+    const [interests, setInterests] = useState(chara.interests)
+    const [career, setCareer] = useState(chara.career)
+    const [selectedRelatives, setSelectedRelatives] = useState(chara.relatives)
+    const [relative_desc, setRelative_desc] = useState(chara.relative_desc)
+    const [selectedPartners, setSelectedPartners] = useState(chara.partner)
+    const [partner_desc, setPartner_desc] = useState(chara.partner_desc)
+    const [lore, setLore] = useState(chara.lore)
+    const [game, setGame] = useState(chara.game)
+    const [publ, setPubl] = useState(chara.publ)
+    const [editing, setEditing] = useState(false)
 
     const printPeople = (desc) => {
-        if (!desc || desc.length === 0) {
-            return ""
-        }
-
-        return (
-            desc.map((person) => {
-                if (!person || Object.keys(person).length === 0) {
-                    return ""
-                }
-                
-                const [name, relation] = Object.entries(person)[0]
-
+        try {
+            if (!desc || desc.length === 0) {
+                return ""
+            } else {
                 return (
-                    `${name} (${relation})`
+                    Object.entries(desc).map(([name, relation]) => 
+                        ` ${name} (${relation})`)
+                        .join(", ")
                 )
-        }).filter(Boolean).join(", "))
+            }
+        } catch (error) {
+            console.log(`Error printing relatives' info ${error}`)
+        }
     }
 
     const editInfo = () => {
-        if (user) {
-            return "/my_characters"
+        setEditing(!editing)
+        //console.log(chara)
+    }
+
+    const showEditButton = () => {
+        if (chara.user.username === user.username) {
+            return (
+                <button id="editButton" onClick={editInfo}>Edit profile</button>
+            )
         } else {
-            return "/characters"
+            return ""
+        }
+    }
+
+    const showAddButton = () => {
+        if (editing) {
+            return (
+                <button id="imageButton" onClick={editInfo}>Add image</button>
+            )
         }
     }
 
@@ -37,6 +72,7 @@ const Chara = ({ chara, user }) => {
             <div id="charaLayout">
                 <div id="charaPic">
                     <img src={chara.image}></img>
+                    {showAddButton()}
                 </div>
 
                 <div id="charaInfo">
@@ -56,13 +92,43 @@ const Chara = ({ chara, user }) => {
                         <li>Relatives: {printPeople(chara.relative_desc)}</li>
                         <li>Partner(s): {printPeople(chara.partner_desc)}</li>
                     </ul>
-                    <button id="editButton" onClick={editInfo}>Edit profile</button>
+                    {showEditButton()}
                 </div>
             </div>
 
             <div id="charaLore">
                 <h3>Lore</h3>
                 <p>{chara.lore}</p>
+            </div>
+
+            <div id="charaEditing">
+                {editing && <EditCharacters
+                    editChara={editChara} 
+                    id={chara.id}
+                    user={user}
+                    message={message}
+                    charas={charas}
+                    prevName={name}
+                    prevFullname={fullname}
+                    prevNickname={nickname}
+                    prevGender={gender}
+                    prevSpecies={species}
+                    prevNationality={nationality}
+                    prevLanguage={language}
+                    prevBirthdate={birthdate}
+                    prevHeight={height}
+                    prevWeight={weight}
+                    prevMbti={mbti}
+                    prevInterests={interests}
+                    prevCareer={career}
+                    prevSelectedRelatives={selectedRelatives}
+                    prevRelative_desc={relative_desc}
+                    prevSelectedPartners={selectedPartners}
+                    prevPartner_desc={partner_desc}
+                    prevLore={lore}
+                    prevGame={game}
+                    prevPubl={publ}
+                />}
             </div>
 
             <div id="charaGallery">

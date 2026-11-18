@@ -9,7 +9,7 @@ const CharaList = ({ charas }) => {
                     if(chara.public.toString() == "true") {
                         return (
                             <div id="charaList" key={chara.name}>
-                                <Link to={`/chara/${index}`}>
+                                <Link to={`/chara/${chara.id}`}>
                                     <img src={chara.image}></img>
                                     <div id="charaName">{chara.name}</div>
                                 </Link>

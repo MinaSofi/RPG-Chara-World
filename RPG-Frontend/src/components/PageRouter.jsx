@@ -26,8 +26,8 @@ const PageRouter = () => {
     const [password, setPassword] = useState('')
     const [charas, setCharas] = useState([])
     const [message, setMessage] = useState(null)
-    const navigate = useNavigate()
     const [loading, setLoading] = useState(true)
+    const navigate = useNavigate()
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem('loggedRPGAppUser')
@@ -120,6 +120,55 @@ const PageRouter = () => {
         }
     }
 
+    const editChara = async (charaToUpdate) => {
+        try {
+            const returnedChara = await charaService.update(charaToUpdate.id, charaToUpdate)
+            setCharas(charas.map(chara => 
+                chara.id !== charaToUpdate.id ? chara : returnedChara
+            ))
+            setMessage('Character edited successfully!')
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        } catch (error) {
+            setMessage('Something went wrong!')
+            console.log(`Error when editing character: ${error}`)
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        }
+    }
+
+    /*
+    const sortCharas = (charas) => {
+        return [...charas].sort((a, b) => b.likes - a.likes)
+    }
+    */
+
+    const removeChara = async (id) => {
+        try {
+            await charaService.remove(id)
+            const fetchedCharas = await charaService.getAll()
+            setCharas(fetchedCharas)
+            setMessage('Character removed successfully!')
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        } catch (error) {
+            setMessage('Something went wrong!')
+            console.log(`Error when deleting character: ${error}`)
+            setTimeout(() => {
+                setMessage(null)
+            }, 3000)
+        }
+    }
+
+    const confirmRemove = (id) => {
+        if (window.confirm('Are you sure you want to delete this character?')) {
+            removeChara(id)
+        }
+    }
+
     return (
         <>
             <header>
@@ -142,11 +191,13 @@ const PageRouter = () => {
                         />
                     } />
                     <Route path="/media" element={<Media />} />
-                    <Route path="/chara/:index" element={
+                    <Route path="/chara/:id" element={
                         <CharaForm 
                             charas={charas}
                             user={user}
                             loading={loading}
+                            message={message}
+                            editChara={editChara}
                         />} 
                     />
                     <Route path="/login" element={

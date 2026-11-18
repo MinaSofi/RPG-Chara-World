@@ -97,7 +97,7 @@ charasRouter.put('/:id', async (request, response) => {
             public,
             user 
         } = request.body
-    const chara = await Chara.findById(request.params.id)
+    const chara = await Chara.findById(request.params.id).populate('user')
 
     if (!chara) {
         return response.status(404).json({ error: 'Character not found' })
@@ -125,9 +125,12 @@ charasRouter.put('/:id', async (request, response) => {
     chara.gallery = gallery
     chara.game = game
     chara.public = public
-    chara.user = user
+    if (user) {
+        chara.user = user
+    }
 
     const updatedChara = await chara.save()
+    await updatedChara.populate('user')
     response.json(updatedChara)
 })
 

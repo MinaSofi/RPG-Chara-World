@@ -59,24 +59,20 @@ const charaSchema = new mongoose.Schema({
             default: ""
         }
     ],
-    relative_desc: [
-        {
-            type: Object,
-            default: ""
-        }
-    ],
+    relative_desc: {
+        type: Object,
+        default: ""
+    },
     partner: [
         {
             type: String,
             default: ""
         }
     ],
-    partner_desc: [
-        {
-            type: Object,
-            default: ""
-        }
-    ],
+    partner_desc: {
+        type: Object,
+        default: ""
+    },
     image: {
         type: String,
         default: "-",
