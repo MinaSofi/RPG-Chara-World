@@ -182,7 +182,6 @@ const PageRouter = () => {
 
             <section>
                 <Nav/>
-
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/characters" element={
@@ -198,6 +197,7 @@ const PageRouter = () => {
                             loading={loading}
                             message={message}
                             editChara={editChara}
+                            deleteChara={confirmRemove}
                         />} 
                     />
                     <Route path="/login" element={

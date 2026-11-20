@@ -2,28 +2,9 @@ import EditCharacters from "./EditCharacters"
 import { useState } from "react"
 import { Link } from "react-router-dom"
 
-const Chara = ({ chara, user, charas, message, editChara }) => {
-    const [name, setName] = useState(chara.name)
-    const [fullname, setFullname] = useState(chara.fullname)
-    const [nickname, setNickname] = useState(chara.nicknames)
-    const [gender, setGender] = useState(chara.gender)
-    const [species, setSpecies] = useState(chara.species)
-    const [nationality, setNationality] = useState(chara.nationality)
-    const [language, setLanguage] = useState(chara.languages)
-    const [birthdate, setBirthdate] = useState(chara.birthdate)
-    const [height, setHeight] = useState(chara.height)
-    const [weight, setWeight] = useState(chara.weight)
-    const [mbti, setMbti] = useState(chara.mbti)
-    const [interests, setInterests] = useState(chara.interests)
-    const [career, setCareer] = useState(chara.career)
-    const [selectedRelatives, setSelectedRelatives] = useState(chara.relatives)
-    const [relative_desc, setRelative_desc] = useState(chara.relative_desc)
-    const [selectedPartners, setSelectedPartners] = useState(chara.partner)
-    const [partner_desc, setPartner_desc] = useState(chara.partner_desc)
-    const [lore, setLore] = useState(chara.lore)
-    const [game, setGame] = useState(chara.game)
-    const [publ, setPubl] = useState(chara.publ)
+const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
     const [editing, setEditing] = useState(false)
+    const [lore, setLore] = useState(chara.lore)
 
     const printPeople = (desc) => {
         try {
@@ -43,7 +24,6 @@ const Chara = ({ chara, user, charas, message, editChara }) => {
 
     const editInfo = () => {
         setEditing(!editing)
-        //console.log(chara)
     }
 
     const showEditButton = () => {
@@ -51,15 +31,36 @@ const Chara = ({ chara, user, charas, message, editChara }) => {
             return (
                 <button id="editButton" onClick={editInfo}>Edit profile</button>
             )
-        } else {
-            return ""
         }
     }
 
-    const showAddButton = () => {
+    const showDeleteButton = () => {
+        if (editing) {
+            return (
+                <button id="deleteButton" onClick={() => deleteChara(chara.id)}>Delete</button>
+            )
+        }
+    }
+
+    const showAddImageButton = () => {
         if (editing) {
             return (
                 <button id="imageButton" onClick={editInfo}>Add image</button>
+            )
+        }
+    }
+
+    const showAddLore = () => {
+        if (editing) {
+            return (
+                <label>
+                    <textarea
+                        id="loreInput"
+                        value={lore}
+                        name="Lore"
+                        onChange={({ target }) => setLore(target.value)}
+                    />
+                </label>
             )
         }
     }
@@ -71,8 +72,8 @@ const Chara = ({ chara, user, charas, message, editChara }) => {
 
             <div id="charaLayout">
                 <div id="charaPic">
-                    <img src={chara.image}></img>
-                    {showAddButton()}
+                    <img src={chara.image} alt="No image added"></img>
+                    {showAddImageButton()}
                 </div>
 
                 <div id="charaInfo">
@@ -93,12 +94,14 @@ const Chara = ({ chara, user, charas, message, editChara }) => {
                         <li>Partner(s): {printPeople(chara.partner_desc)}</li>
                     </ul>
                     {showEditButton()}
+                    {showDeleteButton()}
                 </div>
             </div>
 
             <div id="charaLore">
                 <h3>Lore</h3>
                 <p>{chara.lore}</p>
+                {showAddLore()}
             </div>
 
             <div id="charaEditing">
@@ -108,26 +111,26 @@ const Chara = ({ chara, user, charas, message, editChara }) => {
                     user={user}
                     message={message}
                     charas={charas}
-                    prevName={name}
-                    prevFullname={fullname}
-                    prevNickname={nickname}
-                    prevGender={gender}
-                    prevSpecies={species}
-                    prevNationality={nationality}
-                    prevLanguage={language}
-                    prevBirthdate={birthdate}
-                    prevHeight={height}
-                    prevWeight={weight}
-                    prevMbti={mbti}
-                    prevInterests={interests}
-                    prevCareer={career}
-                    prevSelectedRelatives={selectedRelatives}
-                    prevRelative_desc={relative_desc}
-                    prevSelectedPartners={selectedPartners}
-                    prevPartner_desc={partner_desc}
-                    prevLore={lore}
-                    prevGame={game}
-                    prevPubl={publ}
+                    lore={lore}
+                    prevName={chara.name}
+                    prevFullname={chara.fullname}
+                    prevNickname={chara.nicknames}
+                    prevGender={chara.gender}
+                    prevSpecies={chara.species}
+                    prevNationality={chara.nationality}
+                    prevLanguage={chara.languages}
+                    prevBirthdate={chara.birthdate}
+                    prevHeight={chara.height}
+                    prevWeight={chara.weight}
+                    prevMbti={chara.mbti}
+                    prevInterests={chara.interests}
+                    prevCareer={chara.career}
+                    prevSelectedRelatives={chara.relatives}
+                    prevRelative_desc={chara.relative_desc}
+                    prevSelectedPartners={chara.partner}
+                    prevPartner_desc={chara.partner_desc}
+                    prevGame={chara.game}
+                    prevPubl={chara.publ}
                 />}
             </div>
 

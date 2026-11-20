@@ -7,6 +7,7 @@ const EditCharacters = ({
     user, 
     message, 
     charas,
+    lore, 
     prevName,
     prevFullname,
     prevNickname,
@@ -24,7 +25,6 @@ const EditCharacters = ({
     prevRelative_desc,
     prevSelectedPartners,
     prevPartner_desc,
-    prevLore,
     prevGame,
     prevPubl
 }) => {
@@ -45,7 +45,6 @@ const EditCharacters = ({
     const [relative_desc, setRelative_desc] = useState(prevRelative_desc)
     const [selectedPartners, setSelectedPartners] = useState(prevSelectedPartners)
     const [partner_desc, setPartner_desc] = useState(prevPartner_desc)
-    const [lore, setLore] = useState(prevLore)
     const [game, setGame] = useState(prevGame)
     const [publ, setPubl] = useState(prevPubl)
 
@@ -83,55 +82,53 @@ const EditCharacters = ({
     }
 
     return (
-        <article>
-            <InfoForm
-                charas={charas}
-                user={user}
-                handleAction={handleEditing}
-                title="Edit your character"
-                hint="(*) marks the fields that are required."
-                action="Edit"
-                message={message}
-                text="Be sure to press the edit button to save your changes!"
-                name={name}
-                setName={setName}
-                fullname={fullname}
-                setFullname={setFullname}
-                nickname={nickname}
-                setNickname={setNickname}
-                gender={gender}
-                setGender={setGender}
-                species={species}
-                setSpecies={setSpecies}
-                nationality={nationality}
-                setNationality={setNationality}
-                language={language}
-                setLanguage={setLanguage}
-                birthdate={birthdate}
-                setBirthdate={setBirthdate}
-                height={height}
-                setHeight={setHeight}
-                weight={weight}
-                setWeight={setWeight}
-                mbti={mbti}
-                setMbti={setMbti}
-                interests={interests}
-                setInterests={setInterests}
-                career={career}
-                setCareer={setCareer}
-                selectedRelatives={selectedRelatives}
-                setSelectedRelatives={setSelectedRelatives}
-                relative_desc={relative_desc}
-                setRelative_desc={setRelative_desc}
-                selectedPartners={selectedPartners}
-                setSelectedPartners={setSelectedPartners}
-                partner_desc={partner_desc}
-                setPartner_desc={setPartner_desc}
-                game={game}
-                setGame={setGame}
-                setPubl={setPubl}
-            />
-        </article>
+        <InfoForm
+            charas={charas}
+            user={user}
+            handleAction={handleEditing}
+            title="Edit your character"
+            hint="(*) marks the fields that are required."
+            action="Edit"
+            message={message}
+            text="Be sure to press the edit button to save your changes!"
+            name={name}
+            setName={setName}
+            fullname={fullname}
+            setFullname={setFullname}
+            nickname={nickname}
+            setNickname={setNickname}
+            gender={gender}
+            setGender={setGender}
+            species={species}
+            setSpecies={setSpecies}
+            nationality={nationality}
+            setNationality={setNationality}
+            language={language}
+            setLanguage={setLanguage}
+            birthdate={birthdate}
+            setBirthdate={setBirthdate}
+            height={height}
+            setHeight={setHeight}
+            weight={weight}
+            setWeight={setWeight}
+            mbti={mbti}
+            setMbti={setMbti}
+            interests={interests}
+            setInterests={setInterests}
+            career={career}
+            setCareer={setCareer}
+            selectedRelatives={selectedRelatives}
+            setSelectedRelatives={setSelectedRelatives}
+            relative_desc={relative_desc}
+            setRelative_desc={setRelative_desc}
+            selectedPartners={selectedPartners}
+            setSelectedPartners={setSelectedPartners}
+            partner_desc={partner_desc}
+            setPartner_desc={setPartner_desc}
+            game={game}
+            setGame={setGame}
+            setPubl={setPubl}
+        />
     )
 }
 

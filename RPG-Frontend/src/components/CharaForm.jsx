@@ -1,7 +1,14 @@
 import { useParams } from "react-router-dom"
 import Chara from "./Chara"
 
-const CharaForm = ({ charas, user, loading, message, editChara }) => {
+const CharaForm = ({ 
+    charas, 
+    user, 
+    loading, 
+    message, 
+    editChara, 
+    deleteChara
+}) => {
     const { id } = useParams()
 
     if (loading) {
@@ -11,7 +18,11 @@ const CharaForm = ({ charas, user, loading, message, editChara }) => {
     const chara = charas.find(chara => chara.id === id)
 
     if (!chara) {
-        return <p>Hmm... Seems like this character went missing!</p>
+        return (
+            <article>
+                <p>Hmm... Seems like this character went missing!</p>
+            </article>
+        )
     }
 
     return (
@@ -22,6 +33,7 @@ const CharaForm = ({ charas, user, loading, message, editChara }) => {
             charas={charas} 
             message={message}
             editChara={editChara}
+            deleteChara={deleteChara}
         />
     )
 }
