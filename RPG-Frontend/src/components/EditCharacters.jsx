@@ -8,6 +8,8 @@ const EditCharacters = ({
     message, 
     charas,
     lore, 
+    image,
+    newImage,
     prevName,
     prevFullname,
     prevNickname,
@@ -69,13 +71,12 @@ const EditCharacters = ({
                 relative_desc: relative_desc,
                 partner: selectedPartners,
                 partner_desc: partner_desc,
-                image: null,
+                image: image,
                 lore: lore,
-                gallery: null,
                 game: game,
                 public: publ,
                 id: id
-            })
+            }, newImage)
         } catch (error) {
             console.log(`Error when handling editing character: ${error}`)
         }

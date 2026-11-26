@@ -1,10 +1,21 @@
 const charasRouter = require('express').Router()
 const Chara = require('../models/chara')
 const { userExtractor } = require('../utils/middleware')
+const multer = require('multer')
+const storage = multer.memoryStorage()
+const upload = multer({ storage: storage })
 
 charasRouter.get('/', async (request, response) => {
-    const charas = await Chara.find({}).populate('user', { username: 1 })
-    response.json(charas)
+    const charas = await Chara.find({})
+        .select('-image.data')
+        .populate('user', { username: 1 })
+
+    response.json(
+        charas.map(chara => ({
+            ...chara.toJSON(),
+            hasImage: Boolean(chara.image?.contentType)
+        }))
+    )
 })
 
 charasRouter.get('/:id', async (request, response) => {
@@ -16,9 +27,22 @@ charasRouter.get('/:id', async (request, response) => {
     }
 })
 
-charasRouter.post('/', userExtractor, async (request, response) => {
+charasRouter.get('/:id/image', async (request, response) => {
+    const chara = await Chara.findById(request.params.id)
+
+    if (!chara || !chara.image || !chara.image.data) {
+        return response.status(404).send('Image not found')
+    }
+
+    response.set('Content-Type', chara.image.contentType)
+
+    response.send(chara.image.data)
+})
+
+charasRouter.post('/', userExtractor, upload.single('image'), async (request, response) => {
     const body = request.body
     const user = request.user
+    const file = request.file
 
     const chara = new Chara({
         name: body.name, 
@@ -38,7 +62,10 @@ charasRouter.post('/', userExtractor, async (request, response) => {
         relative_desc: body.relative_desc,
         partner: body.partner,
         partner_desc: body.partner_desc,
-        image: body.image,
+        image: {
+            data: file.buffer,
+            contentType: file.mimetype
+        },
         lore: body.lore,
         gallery: body.gallery,
         game: body.game,
@@ -71,32 +98,30 @@ charasRouter.delete('/:id', userExtractor, async (request, response) => {
     response.status(204).end()
 })
 
-charasRouter.put('/:id', async (request, response) => {
+charasRouter.put('/:id', upload.single('image'), async (request, response) => {
     const { 
-            name, 
-            fullname, 
-            nicknames,
-            gender,
-            species, 
-            nationality,
-            languages,
-            birthdate,
-            height,
-            weight,
-            mbti,
-            interests,
-            career,
-            relatives,
-            relative_desc,
-            partner,
-            partner_desc,
-            image,
-            lore,
-            gallery,
-            game,
-            public,
-            user 
-        } = request.body
+        name, 
+        fullname, 
+        nicknames,
+        gender,
+        species, 
+        nationality,
+        languages,
+        birthdate,
+        height,
+        weight,
+        mbti,
+        interests,
+        career,
+        relatives,
+        relative_desc,
+        partner,
+        partner_desc,
+        lore,
+        game,
+        public
+    } = request.body
+    const file = request.file
     const chara = await Chara.findById(request.params.id).populate('user')
 
     if (!chara) {
@@ -116,18 +141,19 @@ charasRouter.put('/:id', async (request, response) => {
     chara.mbti = mbti
     chara.interests = interests
     chara.career = career
-    chara.relatives = relatives
-    chara.relative_desc = relative_desc
-    chara.partner = partner
-    chara.partner_desc = partner_desc
-    chara.image = image
+    chara.relatives = JSON.parse(relatives)
+    chara.relative_desc = JSON.parse(relative_desc)
+    chara.partner = JSON.parse(partner)
+    chara.partner_desc = JSON.parse(partner_desc)
+    if (file) {
+        chara.image = {
+            data: file.buffer,
+            contentType: file.mimetype
+        }
+    }
     chara.lore = lore
-    chara.gallery = gallery
     chara.game = game
     chara.public = public
-    if (user) {
-        chara.user = user
-    }
 
     const updatedChara = await chara.save()
     await updatedChara.populate('user')

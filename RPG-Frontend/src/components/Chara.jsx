@@ -1,10 +1,26 @@
 import EditCharacters from "./EditCharacters"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
+import defaultPic from "./../assets/default.png"
 
 const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
     const [editing, setEditing] = useState(false)
     const [lore, setLore] = useState(chara.lore)
+    const [image, setImage] = useState(chara.image)
+    const [newImage, setNewImage] = useState(false)
+    const [preview, setPreview] = useState(null)
+
+    useEffect(() => {
+        if (!newImage || !image) {
+            setPreview(null)
+            return
+        }
+
+        const objectUrl = URL.createObjectURL(image)
+        setPreview(objectUrl)
+
+        return () => URL.revokeObjectURL(objectUrl)
+    }, [image, newImage])
 
     const printPeople = (desc) => {
         try {
@@ -45,7 +61,18 @@ const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
     const showAddImageButton = () => {
         if (editing) {
             return (
-                <button id="imageButton" onClick={editInfo}>Add image</button>
+                <label id="imageLabel" for="imageButton">
+                    <p>Change image</p>
+                    <input
+                        id="imageButton"
+                        type="file"
+                        name="charaImage"
+                        onChange={(event) => {
+                            setImage(event.target.files[0])
+                            setNewImage(true)
+                        }}
+                    />
+                </label>
             )
         }
     }
@@ -56,7 +83,7 @@ const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
                 <label>
                     <textarea
                         id="loreInput"
-                        value={lore}
+                        value={lore || ""}
                         name="Lore"
                         onChange={({ target }) => setLore(target.value)}
                     />
@@ -72,7 +99,10 @@ const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
 
             <div id="charaLayout">
                 <div id="charaPic">
-                    <img src={chara.image} alt="No image added"></img>
+                    <img 
+                        src={preview || `/api/charas/${chara.id}/image` || defaultPic} 
+                        alt="No image added"
+                    />
                     {showAddImageButton()}
                 </div>
 
@@ -112,6 +142,8 @@ const Chara = ({ chara, user, charas, message, editChara, deleteChara }) => {
                     message={message}
                     charas={charas}
                     lore={lore}
+                    image={image}
+                    newImage={newImage}
                     prevName={chara.name}
                     prevFullname={chara.fullname}
                     prevNickname={chara.nicknames}

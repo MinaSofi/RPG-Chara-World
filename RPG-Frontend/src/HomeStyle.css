@@ -37,6 +37,8 @@ button {
 	border-radius: 5px;
 	color: white;
 	cursor: pointer;
+	font-family: "Crushed";
+	font-size: 15px;
 }
 
 button:hover {
@@ -255,9 +257,30 @@ nav li a:hover:not(.active) {
 	align-items: center;
 }
 
-#imageButton {
-	float: left;
+#imageLabel {
+	display: inline-block;
+	background: #961EFF;
+	border: 2px solid #7317C4;
+	border-radius: 5px;
+	color: white;
+	cursor: pointer;
 	margin: 10px;
+}
+
+#imageLabel p {
+	padding-right: 0;
+	font-family: "Crushed";
+	font-size: 15px;
+	padding: 2px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+#imageButton {
+	margin: 10px;
+	padding: 10px;
 }
 
 #charaInfo {

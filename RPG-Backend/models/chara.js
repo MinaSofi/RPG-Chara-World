@@ -74,19 +74,17 @@ const charaSchema = new mongoose.Schema({
         default: ""
     },
     image: {
-        type: String,
-        default: "-",
+        data: Buffer,
+        contentType: String,
     },
     lore: {
         type: String,
         default: "-",
     },
-    gallery: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Gallery'
-        }
-    ],
+    gallery: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Gallery'
+    },
     game: {
         type: String,
         default: "-",
@@ -100,11 +98,18 @@ const charaSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
     },
-})
+}, { timestamps: true })
 
 charaSchema.set('toJSON', {
     transform: (document, returnedObject) => {
         returnedObject.id = returnedObject._id.toString()
+
+        returnedObject.hasImage = Boolean(
+            document.image?.data &&
+            document.image.data.length > 0
+        )
+
+        delete returnedObject.image
         delete returnedObject._id
         delete returnedObject.__v
     },

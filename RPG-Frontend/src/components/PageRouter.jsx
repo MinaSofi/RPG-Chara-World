@@ -120,9 +120,9 @@ const PageRouter = () => {
         }
     }
 
-    const editChara = async (charaToUpdate) => {
+    const editChara = async (charaToUpdate, newImage) => {
         try {
-            const returnedChara = await charaService.update(charaToUpdate.id, charaToUpdate)
+            const returnedChara = await charaService.update(charaToUpdate.id, charaToUpdate, newImage)
             setCharas(charas.map(chara => 
                 chara.id !== charaToUpdate.id ? chara : returnedChara
             ))
@@ -187,6 +187,7 @@ const PageRouter = () => {
                     <Route path="/characters" element={
                         <CharaList 
                             charas={charas}
+                            user={user}
                         />
                     } />
                     <Route path="/media" element={<Media />} />

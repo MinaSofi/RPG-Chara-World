@@ -1,23 +1,10 @@
-import { Link } from "react-router-dom"
+import ListedCharas from "./ListedCharas"
 
-const CharaList = ({ charas }) => {
+const CharaList = ({ charas, user }) => {
     return (
         <article>
             <h2 id="charaTitle">All the characters</h2>
-            <div id="charaBox">
-                {charas.map((chara, index) => {
-                    if(chara.public.toString() == "true") {
-                        return (
-                            <div id="charaList" key={chara.name}>
-                                <Link to={`/chara/${chara.id}`}>
-                                    <img src={chara.image}></img>
-                                    <div id="charaName">{chara.name}</div>
-                                </Link>
-                            </div>
-                        )
-                    }
-                })}
-            </div>
+            <ListedCharas charas={charas} user={user} page={'PublicCharacters'}/>
         </article>
     )
 }

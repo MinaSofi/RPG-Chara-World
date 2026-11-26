@@ -46,7 +46,7 @@ const CharaDropdown = ({
             } else {
                 return (
                     charas.map((chara, index) => {
-                        if (chara.user.username == user.username) {
+                        if (chara.user.username === user.username) {
                             return (
                                 <label id="label-dropdown" key={index}>
                                     <input 

@@ -1,10 +1,12 @@
 const mongoose = require('mongoose')
 
 const gallerySchema = new mongoose.Schema({
-    image: {
-        type: String,
-        required: true
-    },
+    images: [
+        {
+            data: Buffer,
+            contentType: String,
+        }
+    ],
     chara: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Chara',
